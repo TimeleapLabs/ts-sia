@@ -3,12 +3,12 @@ declare module "utfz-lib" {
     value: string,
     length: number,
     buffer: Uint8Array,
-    offset: number
+    offset: number,
   ): number;
 
   export function unpack(
     buffer: Uint8Array,
     byteLength: number,
-    offset: number
+    offset: number,
   ): string;
 }

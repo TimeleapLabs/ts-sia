@@ -24,11 +24,22 @@ export interface Users {
 }
 
 function createBaseUser(): User {
-  return { userId: "", username: "", email: "", avatar: "", password: "", birthdate: 0, registeredAt: 0 };
+  return {
+    userId: "",
+    username: "",
+    email: "",
+    avatar: "",
+    password: "",
+    birthdate: 0,
+    registeredAt: 0,
+  };
 }
 
 export const User: MessageFns<User> = {
-  encode(message: User, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+  encode(
+    message: User,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
     if (message.userId !== "") {
       writer.uint32(10).string(message.userId);
     }
@@ -54,7 +65,8 @@ export const User: MessageFns<User> = {
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): User {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUser();
     while (reader.pos < end) {
@@ -128,12 +140,20 @@ export const User: MessageFns<User> = {
   fromJSON(object: any): User {
     return {
       userId: isSet(object.userId) ? globalThis.String(object.userId) : "",
-      username: isSet(object.username) ? globalThis.String(object.username) : "",
+      username: isSet(object.username)
+        ? globalThis.String(object.username)
+        : "",
       email: isSet(object.email) ? globalThis.String(object.email) : "",
       avatar: isSet(object.avatar) ? globalThis.String(object.avatar) : "",
-      password: isSet(object.password) ? globalThis.String(object.password) : "",
-      birthdate: isSet(object.birthdate) ? globalThis.Number(object.birthdate) : 0,
-      registeredAt: isSet(object.registeredAt) ? globalThis.Number(object.registeredAt) : 0,
+      password: isSet(object.password)
+        ? globalThis.String(object.password)
+        : "",
+      birthdate: isSet(object.birthdate)
+        ? globalThis.Number(object.birthdate)
+        : 0,
+      registeredAt: isSet(object.registeredAt)
+        ? globalThis.Number(object.registeredAt)
+        : 0,
     };
   },
 
@@ -184,7 +204,10 @@ function createBaseUsers(): Users {
 }
 
 export const Users: MessageFns<Users> = {
-  encode(message: Users, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+  encode(
+    message: Users,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
     for (const v of message.users) {
       User.encode(v!, writer.uint32(10).fork()).join();
     }
@@ -192,7 +215,8 @@ export const Users: MessageFns<Users> = {
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): Users {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUsers();
     while (reader.pos < end) {
@@ -216,7 +240,11 @@ export const Users: MessageFns<Users> = {
   },
 
   fromJSON(object: any): Users {
-    return { users: globalThis.Array.isArray(object?.users) ? object.users.map((e: any) => User.fromJSON(e)) : [] };
+    return {
+      users: globalThis.Array.isArray(object?.users)
+        ? object.users.map((e: any) => User.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: Users): unknown {
@@ -237,17 +265,31 @@ export const Users: MessageFns<Users> = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    };
 
 function longToNumber(int64: { toString(): string }): number {
   const num = globalThis.Number(int64.toString());

@@ -2,7 +2,7 @@ export const asciiToUint8Array = (
   str: string,
   strLength: number,
   buffer: Uint8Array,
-  offset: number
+  offset: number,
 ) => {
   for (let i = 0; i < strLength; i++) {
     buffer[offset + i] = str.charCodeAt(i);
@@ -19,14 +19,14 @@ const fns = new Array(66).fill(0).map((_, i) => {
     "buf",
     "length",
     "offset",
-    `return String.fromCharCode(${codes});`
+    `return String.fromCharCode(${codes});`,
   );
 });
 
 export const uint8ArrayToAscii = (
   buffer: Uint8Array,
   byteLength: number,
-  offset: number
+  offset: number,
 ) => {
   return fns[byteLength](buffer, byteLength, offset);
 };

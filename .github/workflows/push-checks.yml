@@ -3,12 +3,12 @@ name: Push Checks
 on: [push, pull_request]
 
 jobs:
-  test-ubuntu:
+  lint-and-format:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x, 15.x, 14.x]
+        node-version: [20.x, 18.x]
 
     steps:
       - uses: actions/checkout@v1
@@ -18,25 +18,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: npm install & test
         run: |
-          npm ci
-          npm test
+          corepack enable
+          yarn install
+          yarn lint
+          yarn ts:check
         env:
           CI: true
       - name: Codecov Action
         uses: codecov/codecov-action@v1
-
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16.x
-      - name: npm lint:check
-        run: |
-          npm ci
-          npm run lint:check
-        env:
-          CI: true

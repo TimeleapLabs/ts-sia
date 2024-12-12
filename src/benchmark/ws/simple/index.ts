@@ -61,7 +61,7 @@ bench
 bench
   .add(
     "MsgPack",
-    async () => await makeRpcCall(clients.msgpack, payloads.msgpack())
+    async () => await makeRpcCall(clients.msgpack, payloads.msgpack()),
   )
   .addEventListener("complete", () => clients.msgpack.close());
 

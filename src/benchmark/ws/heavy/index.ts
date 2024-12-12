@@ -61,7 +61,7 @@ const bench = new Bench({ name: "RPC", time: 10 * 1000 });
 const makeRpcCall = async (
   ws: WebSocket,
   ondata: (data: Buffer) => void,
-  payload: Uint8Array
+  payload: Uint8Array,
 ) =>
   new Promise((resolve) => {
     ws.send(payload, { binary: true });
@@ -76,21 +76,23 @@ const makeRpcCall = async (
 bench
   .add(
     "JSON",
-    async () => await makeRpcCall(clients.json, callbacks.json, payloads.json())
+    async () =>
+      await makeRpcCall(clients.json, callbacks.json, payloads.json()),
   )
   .addEventListener("complete", () => clients.json.close());
 
 bench
   .add(
     "Sia",
-    async () => await makeRpcCall(clients.sia, callbacks.sia, payloads.sia())
+    async () => await makeRpcCall(clients.sia, callbacks.sia, payloads.sia()),
   )
   .addEventListener("complete", () => clients.sia.close());
 
 bench
   .add(
     "CBOR",
-    async () => await makeRpcCall(clients.cbor, callbacks.cbor, payloads.cbor())
+    async () =>
+      await makeRpcCall(clients.cbor, callbacks.cbor, payloads.cbor()),
   )
   .addEventListener("complete", () => clients.cbor.close());
 
@@ -98,7 +100,7 @@ bench
   .add(
     "MsgPack",
     async () =>
-      await makeRpcCall(clients.msgpack, callbacks.msgpack, payloads.msgpack())
+      await makeRpcCall(clients.msgpack, callbacks.msgpack, payloads.msgpack()),
   )
   .addEventListener("complete", () => clients.msgpack.close());
 

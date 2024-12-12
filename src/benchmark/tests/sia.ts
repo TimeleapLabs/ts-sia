@@ -1,6 +1,5 @@
-import { fiveThousandUsers } from "./common.js";
 import { Sia } from "../../index.js";
-import assert from "assert";
+import { fiveThousandUsers } from "./common.js";
 
 const sia = new Sia();
 
