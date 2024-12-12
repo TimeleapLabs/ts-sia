@@ -1,6 +1,28 @@
-# Sia v2
+# Sia
 
-This package is getting a rewrite. The new version is incompatible with the previous one.
+Sia serialization for JavaScript/TypeScript
 
-See the [history](https://github.com/pouya-eghbali/sia/tree/f5cdb97bd45e2e1542a953f5c277500bc1526b86)
-of this repository for more information.
+## What is Sia?
+
+Sia is the serialization library used by [Unchained](https://github.com/TimeleapLabs/unchained). Check more details on [Sia's official documentation](https://timeleap.swiss/docs/products/sia).
+
+## Installation
+
+```bash
+npm install @timeleap/sia
+```
+
+## Usage
+
+```python
+import { Sia } from "@timeleap/sia";
+
+const sia = new Sia();
+
+sia
+  .addString8("Hello")
+  .addUint8(25)
+  .addAscii("World");
+
+console.log(sia.content);
+```

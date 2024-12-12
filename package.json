@@ -1,6 +1,6 @@
 {
-  "name": "sializer",
-  "version": "2.0.2",
+  "name": "@timeleap/sia",
+  "version": "2.1.0",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
