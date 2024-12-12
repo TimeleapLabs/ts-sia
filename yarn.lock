@@ -146,6 +146,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@timeleap/sia@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@timeleap/sia@workspace:."
+  dependencies:
+    "@faker-js/faker": "npm:^9.2.0"
+    "@types/node": "npm:^22.9.0"
+    "@types/ws": "npm:^8"
+    cbor-x: "npm:^1.6.0"
+    msgpackr: "npm:^1.11.2"
+    sializer: "npm:0"
+    tinybench: "npm:^3.0.6"
+    ts-proto: "npm:^2.4.2"
+    typescript: "npm:^5.4.3"
+    utfz-lib: "npm:^0.2.0"
+    ws: "npm:^8.18.0"
+  languageName: unknown
+  linkType: soft
+
 "@types/node@npm:*, @types/node@npm:^22.9.0":
   version: 22.9.0
   resolution: "@types/node@npm:22.9.0"
@@ -959,24 +977,6 @@ __metadata:
   checksum: 10c0/641cee2bcc49503302b340616d25c77aabae52f3731219035e0a7f87a56e6bb3e48f1649b4dd05aa86f0bebaeb30fedc350576501aece2907b15a172f8a081ae
   languageName: node
   linkType: hard
-
-"sializer@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "sializer@workspace:."
-  dependencies:
-    "@faker-js/faker": "npm:^9.2.0"
-    "@types/node": "npm:^22.9.0"
-    "@types/ws": "npm:^8"
-    cbor-x: "npm:^1.6.0"
-    msgpackr: "npm:^1.11.2"
-    sializer: "npm:0"
-    tinybench: "npm:^3.0.6"
-    ts-proto: "npm:^2.4.2"
-    typescript: "npm:^5.4.3"
-    utfz-lib: "npm:^0.2.0"
-    ws: "npm:^8.18.0"
-  languageName: unknown
-  linkType: soft
 
 "signal-exit@npm:^4.0.1":
   version: 4.1.0
