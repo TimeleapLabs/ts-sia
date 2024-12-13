@@ -74,74 +74,74 @@ export function serializeBigIntArrayItem(sia: Sia, value: bigint) {
 }
 
 // Deserializers
-export function readInt8ArrayItem(sia: Sia) {
+export function deserializeInt8ArrayItem(sia: Sia) {
   return sia.readInt8();
 }
 
-export function readInt16ArrayItem(sia: Sia) {
+export function deserializeInt16ArrayItem(sia: Sia) {
   return sia.readInt16();
 }
 
-export function readInt32ArrayItem(sia: Sia) {
+export function deserializeInt32ArrayItem(sia: Sia) {
   return sia.readInt32();
 }
 
-export function readInt64ArrayItem(sia: Sia) {
+export function deserializeInt64ArrayItem(sia: Sia) {
   return sia.readInt64();
 }
 
-export function readUInt8ArrayItem(sia: Sia) {
+export function deserializeUInt8ArrayItem(sia: Sia) {
   return sia.readUInt8();
 }
 
-export function readUInt16ArrayItem(sia: Sia) {
+export function deserializeUInt16ArrayItem(sia: Sia) {
   return sia.readUInt16();
 }
 
-export function readUInt32ArrayItem(sia: Sia) {
+export function deserializeUInt32ArrayItem(sia: Sia) {
   return sia.readUInt32();
 }
 
-export function readUInt64ArrayItem(sia: Sia) {
+export function deserializeUInt64ArrayItem(sia: Sia) {
   return sia.readUInt64();
 }
 
-export function readString8ArrayItem(sia: Sia) {
+export function deserializeString8ArrayItem(sia: Sia) {
   return sia.readString8();
 }
 
-export function readString16ArrayItem(sia: Sia) {
+export function deserializeString16ArrayItem(sia: Sia) {
   return sia.readString16();
 }
 
-export function readString32ArrayItem(sia: Sia) {
+export function deserializeString32ArrayItem(sia: Sia) {
   return sia.readString32();
 }
 
-export function readString64ArrayItem(sia: Sia) {
+export function deserializeString64ArrayItem(sia: Sia) {
   return sia.readString64();
 }
 
-export function readByteArray8ArrayItem(sia: Sia) {
+export function deserializeByteArray8ArrayItem(sia: Sia) {
   return sia.readByteArray8();
 }
 
-export function readByteArray16ArrayItem(sia: Sia) {
+export function deserializeByteArray16ArrayItem(sia: Sia) {
   return sia.readByteArray16();
 }
 
-export function readByteArray32ArrayItem(sia: Sia) {
+export function deserializeByteArray32ArrayItem(sia: Sia) {
   return sia.readByteArray32();
 }
 
-export function readByteArray64ArrayItem(sia: Sia) {
+export function deserializeByteArray64ArrayItem(sia: Sia) {
   return sia.readByteArray64();
 }
 
-export function readBoolArrayItem(sia: Sia) {
+export function deserializeBoolArrayItem(sia: Sia) {
   return sia.readBool();
 }
 
-export function readBigIntArrayItem(sia: Sia) {
+export function deserializeBigIntArrayItem(sia: Sia) {
   return sia.readBigInt();
 }
