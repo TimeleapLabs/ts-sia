@@ -2,14 +2,36 @@ import { Buffer } from "./buffer.js";
 import { pack, unpack } from "utfz-lib";
 import { asciiToUint8Array, uint8ArrayToAscii } from "./ascii.js";
 
-const GLOBAL_SHARED_UNSAFE_BUFFER = new Uint8Array(32 * 1024 * 1024);
+const GLOBAL_SHARED_UNSAFE_BUFFER = {
+  buffer: new Uint8Array(32 * 1024 * 1024),
+  offset: 0,
+};
 
 export class Sia extends Buffer {
   encoder: TextEncoder = new TextEncoder();
   decoder: TextDecoder = new TextDecoder();
 
   constructor(content?: Uint8Array) {
-    super(content || GLOBAL_SHARED_UNSAFE_BUFFER);
+    super(content || GLOBAL_SHARED_UNSAFE_BUFFER.buffer);
+  }
+
+  static alloc(size: number): Sia {
+    return new Sia(new Uint8Array(size));
+  }
+
+  static allocUnsafe(size: number): Sia {
+    const begin =
+      GLOBAL_SHARED_UNSAFE_BUFFER.offset + size >
+      GLOBAL_SHARED_UNSAFE_BUFFER.buffer.length
+        ? 0
+        : GLOBAL_SHARED_UNSAFE_BUFFER.offset;
+
+    const subarray = GLOBAL_SHARED_UNSAFE_BUFFER.buffer.subarray(
+      begin,
+      begin + size
+    );
+
+    return new Sia(subarray);
   }
 
   seek(index: number): Sia {
