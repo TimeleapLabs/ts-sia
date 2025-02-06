@@ -4,7 +4,7 @@ Sia serialization for JavaScript/TypeScript
 
 ## What is Sia?
 
-Sia is the serialization library used by [Unchained](https://github.com/TimeleapLabs/unchained). Check more details on [Sia's official documentation](https://timeleap.swiss/docs/products/sia).
+Sia is the serialization library used by [Timeleap](https://github.com/TimeleapLabs/timeleap). Check more details on [Sia's official documentation](https://timeleap.swiss/docs/products/sia).
 
 ## Installation
 
