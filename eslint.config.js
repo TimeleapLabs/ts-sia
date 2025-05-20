@@ -35,15 +35,19 @@ export default [
   },
 
   {
-    files: ["**/*.test.js", "**/*.spec.js"],
+    files: ["**/*.test.js", "**/*.spec.js", "**/*.test.ts", "**/*.spec.ts"],
     plugins: {
       jest,
     },
     languageOptions: {
-      globals: jest.environments.globals,
+      globals: jest.environments.globals.globals,
     },
     rules: {
-      ...jest.configs.recommended.rules,
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/valid-expect": "error",
     },
   },
 

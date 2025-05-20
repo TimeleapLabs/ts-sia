@@ -4,16 +4,14 @@ const { tr } = require("@faker-js/faker");
 
 /** @type {import('jest').Config} */
 module.exports = {
-  // use the ESM‐aware preset
+  // ESM‐aware preset
   preset: "ts-jest/presets/default-esm",
-
-  // run tests in Node
   testEnvironment: "node",
 
-  // ← this resolver will rewrite YOUR foo.js → foo.ts imports
+  // will rewrite .js → .ts imports
   resolver: require.resolve("ts-jest-resolver"),
 
-  // treat your TS files as ESM ('.js' is inferred)
+  // treat TS files as ESM ('.js' is inferred)
   extensionsToTreatAsEsm: [".ts", ".tsx"],
 
   // compile .ts, .tsx, and local .js via ts-jest in ESM mode
@@ -29,15 +27,8 @@ module.exports = {
   },
 
   // these are the file extensions Jest will look for
-  moduleFileExtensions: [
-    "ts",
-    "tsx", // your sources & tests
-    "js",
-    "jsx", // any JS you import locally
-    "json",
-    "node",
-  ],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 
-  // make sure node_modules stay out of your transforms
+  // node_modules stay out of transforms
   transformIgnorePatterns: ["/node_modules/"],
 };

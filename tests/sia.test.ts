@@ -119,23 +119,23 @@ describe("Sia - String", () => {
     sia.seek(0);
     expect(sia.readString8()).toBe(testString);
   });
-  it("should correctly add and read a String8 value", () => {
+  it("should correctly add and read a String16 value", () => {
     const sia = new Sia();
-    const testString = "Hello, String8!";
+    const testString = "Hello, String16!";
     sia.addString16(testString);
     sia.seek(0);
     expect(sia.readString16()).toBe(testString);
   });
-  it("should correctly add and read a String8 value", () => {
+  it("should correctly add and read a String32 value", () => {
     const sia = new Sia();
-    const testString = "Hello, String8!";
+    const testString = "Hello, String32!";
     sia.addString32(testString);
     sia.seek(0);
     expect(sia.readString32()).toBe(testString);
   });
-  it("should correctly add and read a String8 value", () => {
+  it("should correctly add and read a String64 value", () => {
     const sia = new Sia();
-    const testString = "Hello, String8!";
+    const testString = "Hello, String64!";
     sia.addString64(testString);
     sia.seek(0);
     expect(sia.readString64()).toBe(testString);

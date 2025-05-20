@@ -28,7 +28,7 @@ export class Sia extends Buffer {
 
     const subarray = GLOBAL_SHARED_UNSAFE_BUFFER.buffer.subarray(
       begin,
-      begin + size
+      begin + size,
     );
 
     return new Sia(subarray);
