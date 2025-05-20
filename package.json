@@ -6,6 +6,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@eslint/js": "latest",
     "@faker-js/faker": "^9.2.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.9.0",
     "@types/ws": "^8",
     "@typescript-eslint/eslint-plugin": "latest",
@@ -30,10 +32,13 @@
     "cbor-x": "^1.6.0",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
+    "jest": "^29.7.0",
     "msgpackr": "^1.11.2",
     "prettier": "^3.4.2",
     "sializer": "0",
     "tinybench": "^3.0.6",
+    "ts-jest": "^29.3.4",
+    "ts-jest-resolver": "^2.0.1",
     "ts-proto": "^2.4.2",
     "typescript": "^5.4.3",
     "ws": "^8.18.0"
