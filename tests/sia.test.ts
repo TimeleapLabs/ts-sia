@@ -1,83 +1,77 @@
 import { Sia } from "../src/index.js";
 
-describe("Sia - Unsigned 8-bit Integer", () => {
-  it("should correctly add and read a uint8 value", () => {
-    const sia = new Sia();
-    sia.addUInt8(255);
-    sia.seek(0);
-    expect(sia.readUInt8()).toBe(255);
-  });
-});
+describe("Sia - Integer (Signed & Unsigned)", () => {
+  describe("8-bit", () => {
+    it("should correctly add and read a uint8 value", () => {
+      const sia = new Sia();
+      sia.addUInt8(255);
+      sia.seek(0);
+      expect(sia.readUInt8()).toBe(255);
+    });
 
-describe("Sia - Signed 8-bit Integer", () => {
-  it("should correctly add and read an int8 value", () => {
-    const sia = new Sia();
-    sia.addInt8(-120);
-    sia.seek(0);
-    expect(sia.readInt8()).toBe(-120);
+    it("should correctly add and read an int8 value", () => {
+      const sia = new Sia();
+      sia.addInt8(-120);
+      sia.seek(0);
+      expect(sia.readInt8()).toBe(-120);
+    });
+
+    it("should truncate values outside the int8 range (-128 to 127)", () => {
+      const sia = new Sia();
+      sia.addInt8(-129);
+      sia.seek(0);
+      expect(sia.readInt8()).toBe(127);
+    });
   });
 
-  it("should truncate values outside the int8 range (-128 to 127)", () => {
-    const sia = new Sia();
-    sia.addInt8(-129);
-    sia.seek(0);
-    expect(sia.readInt8()).toBe(127);
-  });
-});
+  describe("16-bit", () => {
+    it("should correctly add and read a uint16 value", () => {
+      const sia = new Sia();
+      sia.addUInt16(65535);
+      sia.seek(0);
+      expect(sia.readUInt16()).toBe(65535);
+    });
 
-describe("Sia - Unsigned 16-bit Integer", () => {
-  it("should correctly add and read a uint16 value", () => {
-    const sia = new Sia();
-    sia.addUInt16(65535);
-    sia.seek(0);
-    expect(sia.readUInt16()).toBe(65535);
+    it("should correctly add and read an int16 value", () => {
+      const sia = new Sia();
+      sia.addInt16(-32768);
+      sia.seek(0);
+      expect(sia.readInt16()).toBe(-32768);
+    });
   });
-});
 
-describe("Sia - Signed 16-bit Integer", () => {
-  it("should correctly add and read an int16 value", () => {
-    const sia = new Sia();
-    sia.addInt16(-32768);
-    sia.seek(0);
-    expect(sia.readInt16()).toBe(-32768);
+  describe("32-bit", () => {
+    it("should correctly add and read a uint32 value", () => {
+      const sia = new Sia();
+      sia.addUInt32(4294967295);
+      sia.seek(0);
+      expect(sia.readUInt32()).toBe(4294967295);
+    });
+
+    it("should correctly add and read an int32 value", () => {
+      const sia = new Sia();
+      sia.addInt32(-2147483648);
+      sia.seek(0);
+      expect(sia.readInt32()).toBe(-2147483648);
+    });
   });
-});
 
-describe("Sia - Unsigned 32-bit Integer", () => {
-  it("should correctly add and read a uint32 value", () => {
-    const sia = new Sia();
-    sia.addUInt32(4294967295);
-    sia.seek(0);
-    expect(sia.readUInt32()).toBe(4294967295);
-  });
-});
+  describe("64-bit", () => {
+    it("should correctly add and read a uint64 value", () => {
+      const sia = new Sia();
+      const value = Number.MAX_SAFE_INTEGER; // 2^53 - 1
+      sia.addUInt64(value);
+      sia.seek(0);
+      expect(sia.readUInt64()).toBe(value);
+    });
 
-describe("Sia - Signed 32-bit Integer", () => {
-  it("should correctly add and read an int32 value", () => {
-    const sia = new Sia();
-    sia.addInt32(-2147483648);
-    sia.seek(0);
-    expect(sia.readInt32()).toBe(-2147483648);
-  });
-});
-
-describe("Sia - Unsigned 64-bit Integer", () => {
-  it("should correctly add and read a uint64 value", () => {
-    const sia = new Sia();
-    const value = 2 ** 53 - 1; // Maximum safe integer in JavaScript
-    sia.addUInt64(value);
-    sia.seek(0);
-    expect(sia.readUInt64()).toBe(value);
-  });
-});
-
-describe("Sia - Signed 64-bit Integer", () => {
-  it("should correctly add and read an int64 value", () => {
-    const sia = new Sia();
-    const value = -(2 ** 53) + 1; // Minimum safe integer in JavaScript
-    sia.addInt64(value);
-    sia.seek(0);
-    expect(sia.readInt64()).toBe(value);
+    it("should correctly add and read an int64 value", () => {
+      const sia = new Sia();
+      const value = Number.MIN_SAFE_INTEGER; // -(2^53 - 1)
+      sia.addInt64(value);
+      sia.seek(0);
+      expect(sia.readInt64()).toBe(value);
+    });
   });
 });
 
@@ -253,7 +247,6 @@ describe("Sia - Array tests", () => {
     expect(result).toEqual(arr);
   });
 });
-
 
 describe("Sia read methods - insufficient data error tests", () => {
   it("should throw an error when reading int8 with insufficient data", () => {
