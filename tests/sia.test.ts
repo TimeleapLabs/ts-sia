@@ -155,7 +155,7 @@ describe("Sia - BigInt", () => {
     const sia = new Sia();
     const largeBigInt = BigInt("0x" + "ff".repeat(256));
     expect(() => sia.addBigInt(largeBigInt)).toThrow(
-      "BigInt too large for this simple implementation"
+      "BigInt too large for this simple implementation",
     );
   });
 });
@@ -310,7 +310,7 @@ describe("Sia read methods - insufficient data error tests", () => {
     const sia = new Sia(smallBuffer);
     sia.seek(0);
     expect(() => sia.readByteArrayN(4)).toThrow(
-      "Not enough data to read byte array"
+      "Not enough data to read byte array",
     );
   });
 });
