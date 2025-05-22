@@ -28,7 +28,7 @@ export class Sia extends Buffer {
 
     const subarray = GLOBAL_SHARED_UNSAFE_BUFFER.buffer.subarray(
       begin,
-      begin + size
+      begin + size,
     );
 
     return new Sia(subarray);
@@ -84,13 +84,13 @@ export class Sia extends Buffer {
     return this;
   }
 
-  // TODO: Fix signed integer reading
   readInt8(): number {
-    // Read a single signed byte from the current index
-    if (this.offset >= this.length) {
+    if (this.offset >= this.size) {
       throw new Error("Not enough data to read int8");
     }
-    return this.get(this.offset++);
+    const value = this.dataView.getInt8(this.offset);
+    this.offset++;
+    return value;
   }
 
   addUInt16(n: number): Sia {

@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import typescript from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import prettier from "eslint-config-prettier";
+import jest from "eslint-plugin-jest";
 
 export default [
   js.configs.recommended,
@@ -32,6 +33,24 @@ export default [
       ],
     },
   },
+
+  {
+    files: ["**/*.test.js", "**/*.spec.js", "**/*.test.ts", "**/*.spec.ts"],
+    plugins: {
+      jest,
+    },
+    languageOptions: {
+      globals: jest.environments.globals.globals,
+    },
+    rules: {
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/valid-expect": "error",
+    },
+  },
+
   {
     ignores: [
       "node_modules/**",

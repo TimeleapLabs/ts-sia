@@ -1,5 +1,7 @@
 # Sia
 
+![Build Status](https://github.com/TimeleapLabs/ts-sia/actions/workflows/push-checks.yml/badge.svg?branch=master)
+
 Sia serialization for JavaScript/TypeScript
 
 ## What is Sia?
