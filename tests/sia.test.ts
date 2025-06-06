@@ -314,3 +314,18 @@ describe("Sia read methods - insufficient data error tests", () => {
     );
   });
 });
+
+describe("Sia - Memory safety", () => {
+  it("does not write outside subarray boundaries", () => {
+    const byteArray = new Uint8Array(8).fill(0x1);
+    const sub = byteArray.subarray(4);
+    const sia = new Sia(sub);
+
+    sia.addUInt32(1);
+
+    const untouchedRegion = byteArray.slice(0, 4);
+    const expected = new Uint8Array(4).fill(0x1);
+
+    expect(untouchedRegion).toEqual(expected);
+  });
+});
