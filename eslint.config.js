@@ -41,6 +41,9 @@ export default [
     },
     languageOptions: {
       globals: jest.environments.globals.globals,
+      parserOptions: {
+        project: null,
+      },
     },
     rules: {
       "jest/no-disabled-tests": "warn",
