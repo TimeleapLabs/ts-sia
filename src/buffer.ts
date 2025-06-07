@@ -8,7 +8,11 @@ export class Buffer {
     this.size = uint8Array.length;
     this.content = uint8Array;
     this.offset = 0;
-    this.dataView = new DataView(uint8Array.buffer);
+    this.dataView = new DataView(
+      uint8Array.buffer,
+      uint8Array.byteOffset,
+      uint8Array.byteLength,
+    );
   }
 
   static new(size: number = 32 * 1024 * 1024) {
