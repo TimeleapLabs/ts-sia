@@ -143,11 +143,9 @@ describe("Sia - String", () => {
   it("should correctly add and read a StringN value", () => {
     const sia = new Sia();
     const testString = "Hello, StringN!";
-    sia.addUInt8(testString.length);
     sia.addStringN(testString);
     sia.seek(0);
-    const length = sia.readUInt8();
-    const result = sia.readStringN(length);
+    const result = sia.readStringN(testString.length);
     expect(result).toBe(testString);
   });
 });
