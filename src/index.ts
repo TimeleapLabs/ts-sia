@@ -28,7 +28,7 @@ export class Sia extends Buffer {
 
     const subarray = GLOBAL_SHARED_UNSAFE_BUFFER.buffer.subarray(
       begin,
-      begin + size,
+      begin + size
     );
 
     return new Sia(subarray);
@@ -223,15 +223,73 @@ export class Sia extends Buffer {
     return str;
   }
 
-  addAscii(str: string): Sia {
+  addAsciiN(str: string): Sia {
+    this.offset += asciiToUint8Array(
+      str,
+      str.length,
+      this.content,
+      this.offset
+    );
+    return this;
+  }
+
+  addAscii8(str: string): Sia {
     const length = str.length;
     this.addUInt8(length);
     this.offset += asciiToUint8Array(str, length, this.content, this.offset);
     return this;
   }
 
-  readAscii(): string {
+  addAscii16(str: string): Sia {
+    const length = str.length;
+    this.addUInt16(length);
+    this.offset += asciiToUint8Array(str, length, this.content, this.offset);
+    return this;
+  }
+
+  addAscii32(str: string): Sia {
+    const length = str.length;
+    this.addUInt32(length);
+    this.offset += asciiToUint8Array(str, length, this.content, this.offset);
+    return this;
+  }
+
+  addAscii64(str: string): Sia {
+    const length = str.length;
+    this.addUInt64(length);
+    this.offset += asciiToUint8Array(str, length, this.content, this.offset);
+    return this;
+  }
+
+  readAsciiN(length: number): string {
+    const str = uint8ArrayToAscii(this.content, length, this.offset);
+    this.offset += length;
+    return str;
+  }
+
+  readAscii8(): string {
     const length = this.readUInt8();
+    const str = uint8ArrayToAscii(this.content, length, this.offset);
+    this.offset += length;
+    return str;
+  }
+
+  readAscii16(): string {
+    const length = this.readUInt16();
+    const str = uint8ArrayToAscii(this.content, length, this.offset);
+    this.offset += length;
+    return str;
+  }
+
+  readAscii32(): string {
+    const length = this.readUInt32();
+    const str = uint8ArrayToAscii(this.content, length, this.offset);
+    this.offset += length;
+    return str;
+  }
+
+  readAscii64(): string {
+    const length = this.readUInt64();
     const str = uint8ArrayToAscii(this.content, length, this.offset);
     this.offset += length;
     return str;
