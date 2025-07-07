@@ -140,6 +140,16 @@ describe("Sia - String", () => {
     sia.seek(0);
     expect(sia.readString64()).toBe(testString);
   });
+  it("should correctly add and read a StringN value", () => {
+    const sia = new Sia();
+    const testString = "Hello, StringN!";
+    sia.addUInt8(testString.length);
+    sia.addStringN(testString);
+    sia.seek(0);
+    const length = sia.readUInt8();
+    const result = sia.readStringN(length);
+    expect(result).toBe(testString);
+  });
 });
 
 describe("Sia - BigInt", () => {
@@ -155,7 +165,7 @@ describe("Sia - BigInt", () => {
     const sia = new Sia();
     const largeBigInt = BigInt("0x" + "ff".repeat(256));
     expect(() => sia.addBigInt(largeBigInt)).toThrow(
-      "BigInt too large for this simple implementation",
+      "BigInt too large for this simple implementation"
     );
   });
 });
@@ -310,7 +320,7 @@ describe("Sia read methods - insufficient data error tests", () => {
     const sia = new Sia(smallBuffer);
     sia.seek(0);
     expect(() => sia.readByteArrayN(4)).toThrow(
-      "Not enough data to read byte array",
+      "Not enough data to read byte array"
     );
   });
 });

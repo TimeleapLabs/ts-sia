@@ -28,7 +28,7 @@ export class Sia extends Buffer {
 
     const subarray = GLOBAL_SHARED_UNSAFE_BUFFER.buffer.subarray(
       begin,
-      begin + size,
+      begin + size
     );
 
     return new Sia(subarray);
@@ -235,6 +235,16 @@ export class Sia extends Buffer {
     const str = uint8ArrayToAscii(this.content, length, this.offset);
     this.offset += length;
     return str;
+  }
+
+  addStringN(str: string): Sia {
+    const encodedString = this.encoder.encode(str);
+    return this.addByteArrayN(encodedString);
+  }
+
+  readStringN(length: number, asReference = false): string {
+    const bytes = this.readByteArrayN(length, asReference);
+    return this.decoder.decode(bytes);
   }
 
   addString8(str: string): Sia {
