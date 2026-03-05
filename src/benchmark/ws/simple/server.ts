@@ -17,8 +17,8 @@ siaWss.on("connection", function connection(ws) {
   ws.on("error", console.error);
   ws.on("message", (data) => {
     // Read and skip method name
-    sia.setContent(data as Buffer).readAscii();
-    const address = sia.readAscii();
+    sia.setContent(data as Buffer).readAscii8();
+    const address = sia.readAscii8();
     const balance = getAccountBalance(address);
     const payload = sia.seek(0).addInt64(balance).toUint8ArrayReference();
     ws.send(payload, { binary: true });

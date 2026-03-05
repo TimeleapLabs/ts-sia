@@ -16,14 +16,14 @@ export const payloads = {
   sia: () =>
     sia
       .seek(0)
-      .addAscii(rpcRequest.method)
+      .addAscii8(rpcRequest.method)
       .addArray16(rpcRequest.params, (sia, user) => {
         sia
-          .addAscii(user.userId)
-          .addAscii(user.username)
-          .addAscii(user.email)
-          .addAscii(user.avatar)
-          .addAscii(user.password)
+          .addAscii8(user.userId)
+          .addAscii8(user.username)
+          .addAscii8(user.email)
+          .addAscii8(user.avatar)
+          .addAscii8(user.password)
           .addInt64(user.birthdate.getTime())
           .addInt64(user.registeredAt.getTime());
       })
@@ -43,7 +43,7 @@ const clients = {
 const callbacks = {
   sia: (data: Buffer) => {
     return new Sia(new Uint8Array(data)).readArray16((sia) => {
-      const userId = sia.readAscii();
+      const userId = sia.readAscii8();
       const age = sia.readUInt8();
       return { userId, age };
     });
@@ -61,7 +61,7 @@ const bench = new Bench({ name: "RPC", time: 10 * 1000 });
 const makeRpcCall = async (
   ws: WebSocket,
   ondata: (data: Buffer) => void,
-  payload: Uint8Array,
+  payload: Uint8Array
 ) =>
   new Promise((resolve) => {
     ws.send(payload, { binary: true });
@@ -76,23 +76,21 @@ const makeRpcCall = async (
 bench
   .add(
     "JSON",
-    async () =>
-      await makeRpcCall(clients.json, callbacks.json, payloads.json()),
+    async () => await makeRpcCall(clients.json, callbacks.json, payloads.json())
   )
   .addEventListener("complete", () => clients.json.close());
 
 bench
   .add(
     "Sia",
-    async () => await makeRpcCall(clients.sia, callbacks.sia, payloads.sia()),
+    async () => await makeRpcCall(clients.sia, callbacks.sia, payloads.sia())
   )
   .addEventListener("complete", () => clients.sia.close());
 
 bench
   .add(
     "CBOR",
-    async () =>
-      await makeRpcCall(clients.cbor, callbacks.cbor, payloads.cbor()),
+    async () => await makeRpcCall(clients.cbor, callbacks.cbor, payloads.cbor())
   )
   .addEventListener("complete", () => clients.cbor.close());
 
@@ -100,7 +98,7 @@ bench
   .add(
     "MsgPack",
     async () =>
-      await makeRpcCall(clients.msgpack, callbacks.msgpack, payloads.msgpack()),
+      await makeRpcCall(clients.msgpack, callbacks.msgpack, payloads.msgpack())
   )
   .addEventListener("complete", () => clients.msgpack.close());
 

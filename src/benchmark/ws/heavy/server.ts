@@ -20,13 +20,13 @@ siaWss.on("connection", function connection(ws) {
   ws.on("error", console.error);
   ws.on("message", (data) => {
     // Read and skip method name
-    sia.setContent(data as Buffer).readAscii();
+    sia.setContent(data as Buffer).readAscii8();
     const users = sia.readArray16((sia: Sia) => {
-      const userId = sia.readAscii();
-      sia.readAscii(); // username
-      sia.readAscii(); // email
-      sia.readAscii(); // avatar
-      sia.readAscii(); // password
+      const userId = sia.readAscii8();
+      sia.readAscii8(); // username
+      sia.readAscii8(); // email
+      sia.readAscii8(); // avatar
+      sia.readAscii8(); // password
       const birthdate = new Date(sia.readInt64());
       sia.readInt64(); // registeredAt
       return { userId, birthdate };
@@ -35,7 +35,7 @@ siaWss.on("connection", function connection(ws) {
     const payload = sia
       .seek(0)
       .addArray16(ages, (sia: Sia, age) => {
-        sia.addAscii(age.userId).addUInt8(age.age);
+        sia.addAscii8(age.userId).addUInt8(age.age);
       })
       .toUint8ArrayReference();
     ws.send(payload, { binary: true });

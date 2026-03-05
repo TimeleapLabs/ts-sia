@@ -16,8 +16,8 @@ export const payloads = {
   sia: () =>
     sia
       .seek(0)
-      .addAscii(rpcRequest.method)
-      .addAscii(rpcRequest.params[0])
+      .addAscii8(rpcRequest.method)
+      .addAscii8(rpcRequest.params[0])
       .toUint8ArrayReference(),
   json: () => new Uint8Array(Buffer.from(JSON.stringify(rpcRequest))),
   cbor: () => new Uint8Array(encode(rpcRequest)),
@@ -61,7 +61,7 @@ bench
 bench
   .add(
     "MsgPack",
-    async () => await makeRpcCall(clients.msgpack, payloads.msgpack()),
+    async () => await makeRpcCall(clients.msgpack, payloads.msgpack())
   )
   .addEventListener("complete", () => clients.msgpack.close());
 

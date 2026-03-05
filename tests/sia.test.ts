@@ -102,12 +102,42 @@ describe("Sia - UTFZ String", () => {
 });
 
 describe("Sia - ASCII String", () => {
-  it("should correctly add and read an ASCII string", () => {
+  const testString = "Hello, ASCII!";
+
+  it("should correctly add and read a AsciiN value", () => {
     const sia = new Sia();
-    const testString = "Hello, ASCII!";
-    sia.addAscii(testString);
+    sia.addAsciiN(testString);
     sia.seek(0);
-    expect(sia.readAscii()).toBe(testString);
+    const result = sia.readAsciiN(testString.length);
+    expect(result).toBe(testString);
+  });
+
+  it("should correctly add and read an ASCII8 string", () => {
+    const sia = new Sia();
+    sia.addAscii8(testString);
+    sia.seek(0);
+    expect(sia.readAscii8()).toBe(testString);
+  });
+
+  it("should correctly add and read an ASCII16 string", () => {
+    const sia = new Sia();
+    sia.addAscii16(testString);
+    sia.seek(0);
+    expect(sia.readAscii16()).toBe(testString);
+  });
+
+  it("should correctly add and read an ASCII32 string", () => {
+    const sia = new Sia();
+    sia.addAscii32(testString);
+    sia.seek(0);
+    expect(sia.readAscii32()).toBe(testString);
+  });
+
+  it("should correctly add and read an ASCII64 string", () => {
+    const sia = new Sia();
+    sia.addAscii64(testString);
+    sia.seek(0);
+    expect(sia.readAscii64()).toBe(testString);
   });
 });
 
@@ -155,7 +185,7 @@ describe("Sia - BigInt", () => {
     const sia = new Sia();
     const largeBigInt = BigInt("0x" + "ff".repeat(256));
     expect(() => sia.addBigInt(largeBigInt)).toThrow(
-      "BigInt too large for this simple implementation",
+      "BigInt too large for this simple implementation"
     );
   });
 });
@@ -310,7 +340,7 @@ describe("Sia read methods - insufficient data error tests", () => {
     const sia = new Sia(smallBuffer);
     sia.seek(0);
     expect(() => sia.readByteArrayN(4)).toThrow(
-      "Not enough data to read byte array",
+      "Not enough data to read byte array"
     );
   });
 });

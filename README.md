@@ -24,7 +24,7 @@ const sia = new Sia();
 sia
   .addString8("Hello")
   .addUint8(25)
-  .addAscii("World");
+  .addAscii8("World");
 
 console.log(sia.content);
 ```
