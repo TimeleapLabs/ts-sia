@@ -1,4 +1,4 @@
-import { Buffer } from "./buffer.js";
+import { Buffer, GLOBAL_SHARED_UNSAFE_BUFFER } from "./buffer.js";
 import {
   addUInt8, readUInt8, addInt8, readInt8,
   addUInt16, readUInt16, addInt16, readInt16,
@@ -28,11 +28,9 @@ import {
 } from "./arrays.js";
 import { embedSia as _embedSia, embedBytes as _embedBytes } from "./embed.js";
 
-const GLOBAL_SHARED_UNSAFE_BUFFER = new Uint8Array(32 * 1024 * 1024);
-
 export class Sia extends Buffer {
   constructor(content?: Uint8Array) {
-    super(content || GLOBAL_SHARED_UNSAFE_BUFFER);
+    super(content || GLOBAL_SHARED_UNSAFE_BUFFER.buffer);
   }
 
   static alloc(size: number): Sia {
@@ -40,7 +38,19 @@ export class Sia extends Buffer {
   }
 
   static allocUnsafe(size: number): Sia {
-    return new Sia(Buffer.allocUnsafe(size).content);
+    const begin =
+      GLOBAL_SHARED_UNSAFE_BUFFER.offset + size >
+      GLOBAL_SHARED_UNSAFE_BUFFER.buffer.length
+        ? 0
+        : GLOBAL_SHARED_UNSAFE_BUFFER.offset;
+
+    const subarray = GLOBAL_SHARED_UNSAFE_BUFFER.buffer.subarray(
+      begin,
+      begin + size,
+    );
+
+    GLOBAL_SHARED_UNSAFE_BUFFER.offset = begin + size;
+    return new Sia(subarray);
   }
 
   // Integers

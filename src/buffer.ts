@@ -1,4 +1,4 @@
-const GLOBAL_SHARED_UNSAFE_BUFFER = {
+export const GLOBAL_SHARED_UNSAFE_BUFFER = {
   buffer: new Uint8Array(32 * 1024 * 1024),
   offset: 0,
 };
