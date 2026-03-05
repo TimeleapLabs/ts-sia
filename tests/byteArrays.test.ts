@@ -1,6 +1,6 @@
 import { Buffer } from "../src/buffer.js";
 import {
-  addByteArrayN, readByteArrayN,
+  readByteArrayN,
   addByteArray8, readByteArray8,
   addByteArray16, readByteArray16,
   addByteArray32, readByteArray32,
