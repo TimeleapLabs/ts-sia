@@ -105,13 +105,13 @@ export class Sia extends Buffer {
 
   // Arrays
   addArray8<T>(arr: T[], fn: (s: Sia, item: T) => void): Sia { return addArray8(this, arr, fn); }
-  readArray8<T>(fn: (s: Sia) => T): T[] { return readArray8(this, fn); }
+  readArray8<T>(fn: (s: Sia) => T): T[] { return readArray8(this, fn as (b: Buffer) => T); }
   addArray16<T>(arr: T[], fn: (s: Sia, item: T) => void): Sia { return addArray16(this, arr, fn); }
-  readArray16<T>(fn: (s: Sia) => T): T[] { return readArray16(this, fn); }
+  readArray16<T>(fn: (s: Sia) => T): T[] { return readArray16(this, fn as (b: Buffer) => T); }
   addArray32<T>(arr: T[], fn: (s: Sia, item: T) => void): Sia { return addArray32(this, arr, fn); }
-  readArray32<T>(fn: (s: Sia) => T): T[] { return readArray32(this, fn); }
+  readArray32<T>(fn: (s: Sia) => T): T[] { return readArray32(this, fn as (b: Buffer) => T); }
   addArray64<T>(arr: T[], fn: (s: Sia, item: T) => void): Sia { return addArray64(this, arr, fn); }
-  readArray64<T>(fn: (s: Sia) => T): T[] { return readArray64(this, fn); }
+  readArray64<T>(fn: (s: Sia) => T): T[] { return readArray64(this, fn as (b: Buffer) => T); }
 
   // Embed
   embedSia(sia: Sia): Sia { return _embedSia(this, sia); }
