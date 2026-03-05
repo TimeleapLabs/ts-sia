@@ -1,3 +1,8 @@
+const GLOBAL_SHARED_UNSAFE_BUFFER = {
+  buffer: new Uint8Array(32 * 1024 * 1024),
+  offset: 0,
+};
+
 export class Buffer {
   public size: number;
   public content: Uint8Array;
@@ -15,16 +20,46 @@ export class Buffer {
     );
   }
 
-  static new(size: number = 32 * 1024 * 1024) {
+  static alloc(size: number): Buffer {
     return new Buffer(new Uint8Array(size));
   }
 
-  seek(offset: number) {
-    this.offset = offset;
+  static allocUnsafe(size: number): Buffer {
+    const begin =
+      GLOBAL_SHARED_UNSAFE_BUFFER.offset + size >
+      GLOBAL_SHARED_UNSAFE_BUFFER.buffer.length
+        ? 0
+        : GLOBAL_SHARED_UNSAFE_BUFFER.offset;
+
+    const subarray = GLOBAL_SHARED_UNSAFE_BUFFER.buffer.subarray(
+      begin,
+      begin + size,
+    );
+
+    GLOBAL_SHARED_UNSAFE_BUFFER.offset = begin + size;
+    return new Buffer(subarray);
   }
 
-  skip(count: number) {
+  seek(offset: number): this {
+    this.offset = offset;
+    return this;
+  }
+
+  skip(count: number): this {
     this.offset += count;
+    return this;
+  }
+
+  setContent(uint8Array: Uint8Array): this {
+    this.size = uint8Array.length;
+    this.content = uint8Array;
+    this.offset = 0;
+    this.dataView = new DataView(
+      uint8Array.buffer,
+      uint8Array.byteOffset,
+      uint8Array.byteLength,
+    );
+    return this;
   }
 
   add(data: Uint8Array) {
