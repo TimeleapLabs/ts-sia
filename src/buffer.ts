@@ -1,7 +1,17 @@
-export const GLOBAL_SHARED_UNSAFE_BUFFER = {
-  buffer: new Uint8Array(32 * 1024 * 1024),
+export const GLOBAL_SHARED_UNSAFE_BUFFER: {
+  buffer: Uint8Array | null;
+  offset: number;
+} = {
+  buffer: null,
   offset: 0,
 };
+
+export function getSharedBuffer(): Uint8Array {
+  if (!GLOBAL_SHARED_UNSAFE_BUFFER.buffer) {
+    GLOBAL_SHARED_UNSAFE_BUFFER.buffer = new Uint8Array(32 * 1024 * 1024);
+  }
+  return GLOBAL_SHARED_UNSAFE_BUFFER.buffer;
+}
 
 export class Buffer {
   public size: number;
@@ -25,16 +35,13 @@ export class Buffer {
   }
 
   static allocUnsafe(size: number): Buffer {
+    const shared = getSharedBuffer();
     const begin =
-      GLOBAL_SHARED_UNSAFE_BUFFER.offset + size >
-      GLOBAL_SHARED_UNSAFE_BUFFER.buffer.length
+      GLOBAL_SHARED_UNSAFE_BUFFER.offset + size > shared.length
         ? 0
         : GLOBAL_SHARED_UNSAFE_BUFFER.offset;
 
-    const subarray = GLOBAL_SHARED_UNSAFE_BUFFER.buffer.subarray(
-      begin,
-      begin + size,
-    );
+    const subarray = shared.subarray(begin, begin + size);
 
     GLOBAL_SHARED_UNSAFE_BUFFER.offset = begin + size;
     return new Buffer(subarray);
