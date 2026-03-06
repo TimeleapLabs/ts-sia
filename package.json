@@ -1,9 +1,17 @@
 {
   "name": "@timeleap/sia",
   "version": "2.2.2",
-  "description": "",
+  "description": "Fast, compact binary serialization for TypeScript and JavaScript",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TimeleapLabs/ts-sia"
+  },
   "scripts": {
     "build": "tsc",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
