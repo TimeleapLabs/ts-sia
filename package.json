@@ -1,6 +1,6 @@
 {
   "name": "@timeleap/sia",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "Fast, compact binary serialization for TypeScript and JavaScript",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
