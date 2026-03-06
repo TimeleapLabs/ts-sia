@@ -73,6 +73,44 @@ See the [tree-shaking guide](https://sia.timeleap.swiss/docs/guides/tree-shaking
 
 The number suffix indicates the byte width of the length prefix. `N` variants take an explicit length with no prefix.
 
+## Benchmarks
+
+Benchmarked with [tinybench](https://github.com/tinylibs/tinybench) on 5,000 user objects (7 fields each: 5 strings, 2 integers). Each benchmark runs for 60 seconds.
+
+### Serialization (encode)
+
+| Library | ops/s | vs JSON |
+|---------|------:|--------:|
+| **Sia (functional)** | **709** | **7.9x** |
+| **Sia** | **689** | **7.7x** |
+| Sia (v1) | 316 | 3.5x |
+| MsgPackr | 208 | 2.3x |
+| CBOR-X | 207 | 2.3x |
+| JSON | 90 | 1.0x |
+| Protobuf | 90 | 1.0x |
+
+### Deserialization (decode)
+
+| Library | ops/s | vs JSON |
+|---------|------:|--------:|
+| **Sia** | **925** | **1.84x** |
+| **Sia (functional)** | **912** | **1.82x** |
+| JSON | 502 | 1.0x |
+| Protobuf | 284 | 0.57x |
+| Sia (v1) | 245 | 0.49x |
+| CBOR-X | 208 | 0.41x |
+| MsgPackr | 193 | 0.38x |
+
+### Encoded size
+
+| Library | Size |
+|---------|-----:|
+| **Sia** | **777 KB** |
+| Protobuf | 815 KB |
+| CBOR-X | 1,130 KB |
+| MsgPackr | 1,137 KB |
+| JSON | 1,402 KB |
+
 ## Schema Compiler
 
 Instead of writing serialization code by hand, you can define types in `.sia` files and generate TypeScript code:

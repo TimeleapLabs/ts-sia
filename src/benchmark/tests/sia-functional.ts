@@ -29,8 +29,8 @@ const decodeUser = (b: Buffer) => ({
   email: readAscii8(b),
   avatar: readAscii8(b),
   password: readAscii8(b),
-  birthdate: new Date(readInt64(b)),
-  registeredAt: new Date(readInt64(b)),
+  birthdate: readInt64(b),
+  registeredAt: readInt64(b),
 });
 
 export const siaFunctionalFiveThousandUsersDecode = () => {

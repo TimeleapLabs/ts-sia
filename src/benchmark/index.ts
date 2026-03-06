@@ -45,6 +45,17 @@ await bench.run();
 
 console.table(bench.table());
 
+// Warmup decode functions to ensure JIT compilation before timing
+for (let i = 0; i < 50; i++) {
+  jsonFiveThousandUsersDecode();
+  siaFiveThousandUsersDecode();
+  siaFunctionalFiveThousandUsersDecode();
+  siaOneFiveThousandUsersDecode();
+  cborFiveThousandUsersDecode();
+  msgpackrFiveThousandUsersDecode();
+  protobufFiveThousandUsersDecode();
+}
+
 const deserializeBench = new Bench({
   name: "deserialization",
   time: 60 * 1000,
