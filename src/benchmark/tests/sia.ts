@@ -27,8 +27,8 @@ const decodeUser = (sia: Sia) => ({
   email: sia.readAscii8(),
   avatar: sia.readAscii8(),
   password: sia.readAscii8(),
-  birthdate: new Date(sia.readInt64()),
-  registeredAt: new Date(sia.readInt64()),
+  birthdate: sia.readInt64(),
+  registeredAt: sia.readInt64(),
 });
 
 export const siaFiveThousandUsersDecode = () =>

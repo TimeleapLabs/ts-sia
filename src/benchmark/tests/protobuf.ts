@@ -14,9 +14,5 @@ const encoded = protobufFiveThousandUsers();
 
 export const protobufFiveThousandUsersDecode = () => {
   const { users } = Users.decode(encoded);
-  return users.map((user) => ({
-    ...user,
-    birthdate: new Date(user.birthdate),
-    registeredAt: new Date(user.registeredAt),
-  }));
+  return users;
 };
